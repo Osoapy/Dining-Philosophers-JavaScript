@@ -2,7 +2,7 @@
 const mouse = document.getElementById("prompt-null");
 const commonDelay = 2000;
 const randomScope = 5;
-let loopCount = 1;
+let loopCount = 0;
 
 // MAKING HTML FUNCTIONS
 function createDivTextInsertbeforeLog (text, node) {
@@ -76,7 +76,7 @@ class Philosopher {
   async eat() {
     console.log(`${this.name} is hungry...`);
 
-    if (this.name != "John Locke") {
+    if (this.name != "John Locke" && (this.name == "Diógenes" || Math.random() > 0.5)) {
       await this.leftFork.acquire();
       createDivTextInsertbeforeLog(`${this.name} picked up the left fork.`, mouse);
 
