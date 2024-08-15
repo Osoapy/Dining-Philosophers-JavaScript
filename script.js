@@ -1,6 +1,24 @@
-const commmonDelay = 10000;
-let loopCount = 5;
+// GLOBAL SCOPE VARIABLES
+const mouse = document.getElementById("prompt-null");
+const commonDelay = 2000;
+const randomScope = 5;
+let loopCount = 1;
 
+// MAKING HTML FUNCTIONS
+function createDivTextInsertbeforeLog (text, node) {
+  let newDiv = document.createElement("div");
+  newDiv.classList = "prompt";
+  newDiv.textContent = text;
+  mouse.parentNode.insertBefore(newDiv, node);
+  console.log(text);
+}
+
+// MAKING NORMAL FUNCTIONS
+function getRandomSeconds() {
+    return (Math.random() * randomScope + 1) * commonDelay;
+}
+
+// MAKING THE FORKS AS OBJECTS WITH SEMAPHORES
 class Fork {
   constructor() {
     this.locked = false;
@@ -8,7 +26,7 @@ class Fork {
 
   async acquire() {
     while (this.locked) {
-      await new Promise((resolve) => setTimeout(resolve, commmonDelay));
+      await new Promise((resolve) => setTimeout(resolve, getRandomSeconds()));
     }
     this.locked = true;
   }
@@ -18,6 +36,7 @@ class Fork {
   }
 }
 
+// MAKING THE PHILOSOPHERS AS OBJECTS
 class Philosopher {
   constructor(name, leftFork, rightFork, loopCount) {
     this.name = name;
@@ -29,23 +48,27 @@ class Philosopher {
   async dine() {
     if (this.loopCount != 0) {
       while (this.loopCount) {
+        let div = document.createElement("div");
+        div.classList = "prompt";
+        div.textContent = `${this.name} is thinking...`;
+        mouse.parentNode.insertBefore(div, mouse);
         console.log(`${this.name} is thinking...`);
-        await new Promise((resolve) => setTimeout(resolve, commmonDelay));
+        await new Promise((resolve) => setTimeout(resolve, getRandomSeconds()));
 
         await this.eat();
 
-        console.log(`${this.name} finished eating and starts thinking again.`);
+        createDivTextInsertbeforeLog(`${this.name} finished eating and starts thinking again.`, mouse);
         this.loopCount--;
       }
     }
     else {
       while (true) {
-        console.log(`${this.name} is thinking...`);
-        await new Promise((resolve) => setTimeout(resolve, commmonDelay));
+        createDivTextInsertbeforeLog(`${this.name} is thinking...`, mouse);
+        await new Promise((resolve) => setTimeout(resolve, getRandomSeconds()));
 
         await this.eat();
 
-        console.log(`${this.name} finished eating and starts thinking again.`);
+        createDivTextInsertbeforeLog(`${this.name} finished eating and starts thinking again.`, mouse);
       }
     }
   }
@@ -55,26 +78,27 @@ class Philosopher {
 
     if (this.name != "John Locke") {
       await this.leftFork.acquire();
-      console.log(`${this.name} picked up the left fork.`);
+      createDivTextInsertbeforeLog(`${this.name} picked up the left fork.`, mouse);
 
       await this.rightFork.acquire();
-      console.log(`${this.name} picked up the right fork.`);
+      createDivTextInsertbeforeLog(`${this.name} picked up the right fork.`, mouse);
     } else {
       await this.rightFork.acquire();
-      console.log(`${this.name} picked up the right fork.`);
+      createDivTextInsertbeforeLog(`${this.name} picked up the right fork.`, mouse);
 
       await this.leftFork.acquire();
-      console.log(`${this.name} picked up the left fork.`);
+      createDivTextInsertbeforeLog(`${this.name} picked up the left fork.`, mouse);
     }
 
-    console.log(`${this.name} is eating...`);
-    await new Promise((resolve) => setTimeout(resolve, commmonDelay));
+    createDivTextInsertbeforeLog(`${this.name} is eating...`, mouse);
+    await new Promise((resolve) => setTimeout(resolve, getRandomSeconds()));
 
     this.leftFork.release();
     this.rightFork.release();
   }
 }
 
+// MAKING IT START
 (async () => {
   const forks = [new Fork(), new Fork(), new Fork(), new Fork(), new Fork()];
   const philosophers = [

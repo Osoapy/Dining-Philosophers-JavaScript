@@ -4,76 +4,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Dining Philosophers</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <style>
-      body {
-          background-color: #2D2D2D;
-          color: #00FF00;
-          font-family: Consolas, monaco, monospace;
-          margin: 0;
-          padding: 0;
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-      }
-
-      .terminal {
-          width: 80%;
-          max-width: 800px;
-          height: 70%;
-          max-height: 500px;
-          background-color: #1C1C1C;
-          padding: 20px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-          border-radius: 5px;
-          overflow-y: auto;
-      }
-
-      .terminal .title-bar {
-          background-color: #333;
-          color: white;
-          padding: 5px;
-          text-align: center;
-          border-radius: 3px 3px 0 0;
-      }
-
-      .terminal .content {
-          padding-top: 10px;
-      }
-
-      .prompt {
-          margin-bottom: 10px;
-      }
-
-      .prompt::before {
-          content: "C:\\Users\\User>";
-          color: #00FF00;
-      }
-
-      .input-cursor {
-          display: inline-block;
-          width: 10px;
-          height: 16px;
-          background-color: #00FF00;
-          animation: blink 1s steps(2, start) infinite;
-          vertical-align: bottom;
-      }
-
-      @keyframes blink {
-          to {
-              visibility: hidden;
-          }
-      }
-  </style>
+  <title>Dining_Philosophers.exe</title>
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+  <link rel="icon" href="Assets/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
   <div class="terminal">
       <div class="title-bar">Terminal</div>
       <div class="content">
-          <div class="prompt">echo Hello, world!</div>
+          <div id="prompt-null" class="prompt"><span class="input-cursor"></span></div>
       </div>
   </div>
   <script src="script.js"></script>
